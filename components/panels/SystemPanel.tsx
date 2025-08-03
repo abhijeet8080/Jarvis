@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { PanelInterface } from "./PanelInterface";
 
 
 interface BatteryManager extends EventTarget {
@@ -21,7 +22,7 @@ interface NavigatorExtended extends Navigator {
 
 }
 
-const SystemPanel = () => {
+const SystemPanel = ({focused,onFocus}:PanelInterface) => {
   const [cpuLoad, setCpuLoad] = useState(0); 
   const [ram, setRam] = useState(0);         
   const [isOnline, setIsOnline] = useState(true);
@@ -65,7 +66,9 @@ const SystemPanel = () => {
 
   return (
     <motion.div
-      className="absolute top-20 left-4 bg-[#0D0D0D]/80 border border-[#00F0FF]/40 rounded p-2 w-64"
+    onClick={onFocus}
+      className={`absolute top-20 left-4 bg-[#0D0D0D]/80 border border-[#00F0FF]/40 rounded p-2 w-64 cursor-pointer transition-all duration-300 ${
+    focused ? "z-50 scale-105 shadow-2xl" : "z-10"}`}
       initial={{ x: -100, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ delay: 0.5 }}

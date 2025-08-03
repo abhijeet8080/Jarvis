@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Trash2, CheckCircle2, PlusCircle } from "lucide-react";
+import { PanelInterface } from "./PanelInterface";
 
 type Task = {
   id: number;
@@ -9,7 +10,7 @@ type Task = {
   completed: boolean;
 };
 
-const TaskPanel = () => {
+const TaskPanel = ({focused,onFocus}:PanelInterface) => {
   const [tasks, setTasks] = useState<Task[]>([
     { id: 1, text: "Finish AI Core System Integration", completed: false },
     { id: 2, text: "Monitor Network Packets", completed: false },
@@ -42,7 +43,10 @@ const TaskPanel = () => {
 
   return (
     <motion.div
-      className="absolute bottom-4 right-4 bg-[#0D0D0D]/80 border border-[#00F0FF]/40 rounded p-2  w-64 z-20 pointer-events-auto"
+      onClick={onFocus}
+      className={`absolute bottom-4 right-4 bg-[#0D0D0D]/80 border border-[#00F0FF]/40 rounded p-2  w-64  cursor-pointer transition-all duration-300 ${
+    focused ? "z-50 scale-105 shadow-2xl" : "z-10"
+  }`}
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 1.1 }}

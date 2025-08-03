@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { PanelInterface } from "./PanelInterface";
 
-const TimeWeatherPanel = () => {
+const TimeWeatherPanel = ({focused,onFocus}:PanelInterface) => {
   const [weather, setWeather] = useState("Fetching weather...");
   const [city, setCity] = useState("Locating...");
   const [humidity, setHumidity] = useState("");
@@ -50,9 +51,12 @@ const TimeWeatherPanel = () => {
     }
   }, []);
   return (
-    <div>
+    
       <motion.div
-        className="absolute top-20 right-4 bg-[#0D0D0D]/80 border border-[#00F0FF]/40 rounded p-2 w-64"
+        onClick={onFocus}
+        className={`absolute top-20 right-4 bg-[#0D0D0D]/80 border border-[#00F0FF]/40 rounded p-2 w-64 cursor-pointer transition-all duration-300 ${
+    focused ? "z-50 scale-105 shadow-2xl" : "z-10"
+  }`}
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ delay: 0.7 }}
@@ -66,7 +70,6 @@ const TimeWeatherPanel = () => {
           <p>Date: {time.toDateString()}</p>
         </div>
       </motion.div>
-    </div>
   );
 };
 
