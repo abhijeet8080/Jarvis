@@ -2,6 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  images:{
+        domains: ["lh3.googleusercontent.com"],
+
+  },
   async headers() {
     return [
       {
@@ -12,6 +16,7 @@ const nextConfig: NextConfig = {
             value: 'model/gltf-binary',
           },
         ],
+        
       },
     ];
   },
